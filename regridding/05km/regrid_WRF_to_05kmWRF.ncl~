@@ -1,0 +1,169 @@
+;***************************************
+; PROGRAM DESCRIPTION: Script to use ESMF weights and interpolate
+;                      data from WRF to POP RASM grid (Regional)
+; INPUT DATA: WRF netcdf file and ESMF mapping file
+; OUTPUT DATA: Netcdf file with WRF data on POP grid
+; CREATOR: Alice DuVivier (July 2015)
+;***************************************
+load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_code.ncl"
+load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_csm.ncl"
+load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/contributed.ncl"
+load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/shea_util.ncl"
+load "$NCARG_ROOT/lib/ncarg/nclscripts/wrf/WRFUserARW.ncl"
+load "$NCARG_ROOT/lib/ncarg/nclscripts/esmf/ESMF_regridding.ncl"
+;***************************************
+begin
+; MANUAL INPUTS - for testing purposes. Otherwise loaded from csh script
+; ******************************************************
+;tag = "PW-50-40-M-bn"
+;date = "2015-05-21_20-20"  
+; ******************************************************
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
+; BEGIN SCRIPT
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+setfileoption("nc","Format","LargeFile")
+setfileoption("nc","SuppressClose",False)
+
+dir_5km   = "/data/duvivier/polar_winds/DATA/geo_em/"
+; load 5km geo file
+geo_5km = "geo_em.d01.05km.nc"
+f0 = addfile(dir_5km+geo_5km,"r") 
+  ; latitude
+  lat_5km = f0->XLAT_M(0,:,:)
+  ; longitude
+  lon_5km = f0->XLONG_M(0,:,:)
+
+dir_in = "/data/duvivier/polar_winds/DATA/"+tag+"/wrfout-cf/"
+dir_out = "/data/duvivier/polar_winds/DATA/"+tag+"/wrfto05km/"
+; set WRF input file and load variables for interpolation
+fin = "wrf-"+date+"."+tag+"-cf.nc"
+f = addfile(dir_in+fin,"r")
+lat_wrf = f->lat
+lon_wrf = f->lon
+hgt_wrf = f->Z_sfc
+u_wrf = f->u_10m_tr(0,:,:)
+v_wrf = f->v_10m_tr(0,:,:)
+ws_wrf = f->ws_10m(0,:,:)
+LH_wrf = f->LH(0,:,:)
+SH_wrf = f->SH(0,:,:)
+slp_wrf = f->slp(0,:,:)
+T_sfc_wrf = f->T_sfc(0,:,:)
+T_2m_wrf = f->T_2m(0,:,:)
+precip_g_wrf = f->precip_g(0,:,:)
+precip_c_wrf = f->precip_c(0,:,:)
+LW_d_wrf = f->LW_d(0,:,:)
+SW_d_wrf = f->SW_d(0,:,:)
+Z_500_wrf = f->Z_p(0,2,:,:)
+
+; set Regridded output file
+fout = "wrfto05km."+date+"."+tag+"-cf.nc"
+outfile = addfile(dir_out+fout,"c")
+
+; write lat/lon to new file
+outfile ->lat_5km = lat_5km
+outfile ->lon_5km = lon_5km
+print("Wrote lat/lon info")
+
+; set Weight File (must be in same directory as script)
+WgtFile = "ESMF_wgt-WRF_to_05km.nc"
+
+; set options for regridding
+  optESMF                     = True
+  optESMF@InterpMethod        = "bilinear"
+  optESMF@WgtFileName         = WgtFile
+  optESMF@Debug               = False ;True
+  optESMF@CopyVarAtts         = False ;True
+  optESMF@CopyVarCoords       = False ;True
+  optESMF@RemoveSrcFile       = True  ;False   
+  optESMF@RemoveDstFile       = True  ;False   
+  optESMF@RemoveWgtFile       = False 
+  optESMF@ForceOverwrite      = True  
+  optESMF@SrcGridLat          = lat_wrf
+  optESMF@SrcGridLon          = lon_wrf
+  optESMF@SrcInputFileName    = fin
+  optESMF@DstGridLat          = lat_5km
+  optESMF@DstGridLon          = lon_5km
+  optESMF@DstInputFileName    = geo_5km
+  optESMF@SrcTitle            = "WRF domain"
+  optESMF@DstTitle            = "WRF 5km domain"
+  optESMF@SrcRegional         = True     ; source data is regional
+  optESMF@DstRegional         = True     ; destination grid is regional
+  optESMF@SrcGridType         = "curvilinear"   ; WRF is a curvilinear grid
+  optESMF@DstGridType         = "curvilinear"   ; WRF 5km is a curvilinear grid
+
+; regrid the height and create weight file
+hgt_5km = ESMF_regrid(hgt_wrf,optESMF)
+print("Weights generated successfully")
+copy_VarCoords(lat_5km, hgt_5km)
+outfile ->Z_sfc = hgt_5km
+print("Regridded terrain")
+
+u_10m_5km = ESMF_regrid_with_weights(u_wrf,WgtFile,optESMF)
+copy_VarCoords(lat_5km, u_10m_5km)
+outfile ->u_10m = u_10m_5km
+print("Regridded u wind component")
+
+v_10m_5km = ESMF_regrid_with_weights(v_wrf,WgtFile,optESMF)
+copy_VarCoords(lat_5km, v_10m_5km)
+outfile ->v_10m = v_10m_5km
+print("Regridded v wind component")
+
+ws_10m_5km = ESMF_regrid_with_weights(ws_wrf,WgtFile,optESMF)
+copy_VarCoords(lat_5km, ws_10m_5km)
+outfile ->ws_10m = ws_10m_5km
+print("Regridded wind speed")
+
+slp_5km = ESMF_regrid_with_weights(slp_wrf,WgtFile,optESMF)
+copy_VarCoords(lat_5km, slp_5km)
+outfile ->slp = slp_5km
+print("Regridded slp")
+
+Z_500_5km = ESMF_regrid_with_weights(Z_500_wrf,WgtFile,optESMF)
+copy_VarCoords(lat_5km, Z_500_5km)
+outfile ->Z_500 = Z_500_5km
+print("Regridded Z_500")
+
+T_sfc_5km = ESMF_regrid_with_weights(T_sfc_wrf,WgtFile,optESMF)
+copy_VarCoords(lat_5km, T_sfc_5km)
+outfile ->T_sfc = T_sfc_5km
+print("Regridded surface temperature")
+
+T_2m_5km = ESMF_regrid_with_weights(T_2m_wrf,WgtFile,optESMF)
+copy_VarCoords(lat_5km, T_2m_5km)
+outfile ->T_2m = T_2m_5km
+print("Regridded 2m temperature")
+
+precip_g_5km = ESMF_regrid_with_weights(precip_g_wrf,WgtFile,optESMF)
+copy_VarCoords(lat_5km, precip_g_5km)
+outfile ->precip_g = precip_g_5km
+print("Regridded precip g")
+
+precip_c_5km = ESMF_regrid_with_weights(precip_c_wrf,WgtFile,optESMF)
+copy_VarCoords(lat_5km, precip_c_5km)
+outfile ->precip_c = precip_c_5km
+print("Regridded precip c")
+
+LH_5km = ESMF_regrid_with_weights(LH_wrf,WgtFile,optESMF)
+copy_VarCoords(lat_5km, LH_5km)
+outfile ->LH = LH_5km
+print("Regridded latent heat flux")
+
+SH_5km = ESMF_regrid_with_weights(SH_wrf,WgtFile,optESMF)
+copy_VarCoords(lat_5km, SH_5km)
+outfile ->SH = SH_5km
+print("Regridded sensible heat flux")
+
+LW_d_5km = ESMF_regrid_with_weights(LW_d_wrf,WgtFile,optESMF)
+copy_VarCoords(lat_5km, LW_d_5km)
+outfile ->LW_d = LW_d_5km
+print("Regridded longwave down")
+
+SW_d_5km = ESMF_regrid_with_weights(SW_d_wrf,WgtFile,optESMF)
+copy_VarCoords(lat_5km, SW_d_5km)
+outfile ->SW_d = SW_d_5km
+print("Regridded shortwave down")
+
+print("Completed gridding of WRF to 5km for: "+date)
+;;;;;;;;;;;;;;;;;;;;;; END script
+end
+

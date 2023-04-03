@@ -1,0 +1,58 @@
+#! /bin/tcsh -f
+
+# Script to create node average netcdf files
+# This is specific to my som study but could be modified fairly easily
+# Alice DuVivier- July 2013
+#################################################
+# set simulation info
+set tags1 = ('PW-50-40-M-a' 'PW-25-40-M-a' 'PW-10-40-M-a' 'PW-05-40-M-a')
+set tags2 = ('PW-50-40-M-b' 'PW-25-40-M-b' 'PW-10-40-M-b' 'PW-05-40-M-b')
+set tags3 = ('PW-50-40-M-c' 'PW-25-40-M-c' 'PW-10-40-M-c' 'PW-05-40-M-c')
+set tags4 = ('PW-50-40-M-an' 'PW-25-40-M-an' 'PW-10-40-M-an' 'PW-05-40-M-an')
+set tags5 = ('PW-50-40-M-bn' 'PW-25-40-M-bn' 'PW-10-40-M-bn' 'PW-05-40-M-bn')
+set tags6 = ('PW-50-40-M-cn' 'PW-25-40-M-cn' 'PW-10-40-M-cn' 'PW-05-40-M-cn')
+
+##############
+# Choose location
+##############
+set names  = ('190950' '192456' '194625' '201031' '203004' '204411' '205909' '211845')
+
+##############
+# Set directory paths and create output directory
+##############
+# Directory paths and creation
+set maindir = '/data/duvivier/polar_winds/analysis/sim_start_comparison/dropsondes/'
+set outdir = $maindir'figures/compare_start_times_nudging/'
+mkdir -p $outdir
+echo 'Now running for '$outdir
+
+##############
+# start loops
+##############
+set q = 1
+while ($q <= 8)  # max 8
+
+set t = 1
+while ($t <= 4)
+
+##############
+# Input into ncl
+##############
+        echo 'Processing plots for '$names[$q]' and' $tags1[$t]
+   ncl 'name               = "'$names[$q]'"'\
+       'tag1               = "'$tags1[$t]'"' \
+       'tag2               = "'$tags2[$t]'"' \
+       'tag3               = "'$tags3[$t]'"' \
+       'tag4               = "'$tags4[$t]'"' \
+       'tag5               = "'$tags5[$t]'"' \
+       'tag6               = "'$tags6[$t]'"' \
+       ${maindir}dropsonde_plots_compare_six.ncl
+   mv *.png $outdir
+   rm *.ps
+
+@ t ++
+end
+
+@ q ++
+end
+
