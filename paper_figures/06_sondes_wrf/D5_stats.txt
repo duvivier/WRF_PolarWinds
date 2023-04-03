@@ -1,0 +1,49 @@
+ Copyright (C) 1995-2014 - All Rights Reserved
+ University Corporation for Atmospheric Research
+ NCAR Command Language Version 6.2.1
+ The use of this software is governed by a License Agreement.
+ See http://www.ncl.ucar.edu/ for more details.
+(0)	Plotting polar winds dropsondes and wrf simulations
+(0)	Loading dropsonde data
+(0)	Loading relevant lidar data
+(0)	Loading data for 205909
+(0)	W05-40-M vs. sonde wind speed: bias: 3.71083, rmse: 4.86083, corr:0.260092
+(0)	W05-40-M vs. sonde wind dir: bias: 6.31242, rmse: 17.4967, corr:0.488024
+(0)	W05-40-M vs. sonde temp: bias: 0.14583, rmse: 0.811921, corr:0.989727
+(0)	W05-60-M vs. sonde wind speed: bias: 3.09034, rmse: 4.01731, corr:0.540733
+(0)	W05-60-M vs. sonde wind dir: bias: 8.67503, rmse: 17.6447, corr:0.618414
+(0)	W05-60-M vs. sonde temp: bias: 0.058948, rmse: 0.603613, corr:0.992127
+(0)	W10-40-M vs. sonde wind speed: bias: 4.56081, rmse: 5.36016, corr:0.500888
+(0)	W10-40-M vs. sonde wind dir: bias: 6.9801, rmse: 19.5339, corr:0.185484
+(0)	W10-40-M vs. sonde temp: bias: 0.0613467, rmse: 0.884572, corr:0.98356
+(0)	W25-40-M vs. sonde wind speed: bias: 5.26806, rmse: 5.82585, corr:0.639085
+(0)	W25-40-M vs. sonde wind dir: bias: 8.08207, rmse: 23.7264, corr:-0.744507
+(0)	W25-40-M vs. sonde temp: bias: -0.638794, rmse: 1.17606, corr:0.974401
+(0)	W50-40-M vs. sonde wind speed: bias: 4.52472, rmse: 5.27319, corr:0.630706
+(0)	W50-40-M vs. sonde wind dir: bias: 5.3592, rmse: 31.9128, corr:-0.836662
+(0)	W50-40-M vs. sonde temp: bias: 0.00762265, rmse: 0.56757, corr:0.993903
+(0)	W05-40-U vs. sonde wind speed: bias: 4.32784, rmse: 5.29044, corr:0.515632
+(0)	W05-40-U vs. sonde wind dir: bias: 6.14659, rmse: 14.378, corr:0.767249
+(0)	W05-40-U vs. sonde temp: bias: 0.0732684, rmse: 0.899598, corr:0.986061
+(0)	W05-60-U vs. sonde wind speed: bias: 3.08245, rmse: 4.10366, corr:0.555165
+(0)	W05-60-U vs. sonde wind dir: bias: 8.77972, rmse: 16.5427, corr:0.791481
+(0)	W05-60-U vs. sonde temp: bias: 0.000268509, rmse: 0.732231, corr:0.98672
+(0)	lidar vs. sonde wind speed: bias: -0.29025, rmse: 2.02843, corr:0.743906
+(0)	lidar vs. sonde wind dir: bias: -6.93248, rmse: 9.41753, corr:0.943493
+(0)	W05-40-M vs. lidar wind speed: bias: 3.72386, rmse: 4.35047, corr:-0.202049
+(0)	W05-40-M vs. lidar wind dir: bias: 6.84021, rmse: 19.4362, corr:0.373763
+(0)	W05-60-M vs. lidar wind speed: bias: 3.23221, rmse: 3.64887, corr:0.568632
+(0)	W05-60-M vs. lidar wind dir: bias: 8.18293, rmse: 18.9224, corr:0.66103
+(0)	W10-40-M vs. lidar wind speed: bias: 5.45824, rmse: 5.84145, corr:0.173333
+(0)	W10-40-M vs. lidar wind dir: bias: 6.46926, rmse: 20.5702, corr:-0.105191
+(0)	W25-40-M vs. lidar wind speed: bias: 6.41275, rmse: 6.65424, corr:0.506564
+(0)	W25-40-M vs. lidar wind dir: bias: 7.47345, rmse: 22.9425, corr:-0.814551
+(0)	W50-40-M vs. lidar wind speed: bias: 5.99725, rmse: 6.24923, corr:0.607513
+(0)	W50-40-M vs. lidar wind dir: bias: -4.97932, rmse: 31.6161, corr:-0.882862
+(0)	W05-40-U vs. lidar wind speed: bias: 4.81653, rmse: 5.21369, corr:0.476426
+(0)	W05-40-U vs. lidar wind dir: bias: 9.76609, rmse: 17.8194, corr:0.781057
+(0)	W05-60-U vs. lidar wind speed: bias: 3.4484, rmse: 3.92969, corr:0.497693
+(0)	W05-60-U vs. lidar wind dir: bias: 9.69454, rmse: 17.6152, corr:0.753457
+(0)	Plotting dropsonde data
+(0)	DS and WRF point plots complete- panneling
+(0)	converting to png

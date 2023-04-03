@@ -1,0 +1,33 @@
+ Copyright (C) 1995-2014 - All Rights Reserved
+ University Corporation for Atmospheric Research
+ NCAR Command Language Version 6.2.1
+ The use of this software is governed by a License Agreement.
+ See http://www.ncl.ucar.edu/ for more details.
+(0)	Plotting polar winds dropsondes and wrf simulations
+(0)	Loading dropsonde data
+(0)	Loading relevant lidar data
+(0)	Loading data for 201031
+(0)	W05-40-M vs. sonde wind speed: bias: -1.25992, rmse: 2.78569, corr:0.822808
+(0)	W05-40-M vs. sonde wind dir: bias: 0.562607, rmse: 7.07624, corr:0.0900336
+(0)	W05-40-M vs. sonde temp: bias: -0.130492, rmse: 1.16537, corr:0.964862
+(0)	W05-60-M vs. sonde wind speed: bias: -3.45729, rmse: 4.42473, corr:0.765885
+(0)	W05-60-M vs. sonde wind dir: bias: -1.72383, rmse: 8.9858, corr:-0.182253
+(0)	W05-60-M vs. sonde temp: bias: 0.099415, rmse: 1.30825, corr:0.949185
+(0)	W10-40-M vs. sonde wind speed: bias: -1.67678, rmse: 2.7262, corr:0.875211
+(0)	W10-40-M vs. sonde wind dir: bias: -1.20643, rmse: 8.22591, corr:-0.147053
+(0)	W10-40-M vs. sonde temp: bias: -0.264529, rmse: 1.24053, corr:0.959857
+(0)	W25-40-M vs. sonde wind speed: bias: -1.79115, rmse: 3.17477, corr:0.797709
+(0)	W25-40-M vs. sonde wind dir: bias: 4.12491, rmse: 7.5535, corr:0.225443
+(0)	W25-40-M vs. sonde temp: bias: -0.486969, rmse: 1.19148, corr:0.975033
+(0)	W50-40-M vs. sonde wind speed: bias: -1.1936, rmse: 2.70193, corr:0.825014
+(0)	W50-40-M vs. sonde wind dir: bias: 1.68432, rmse: 6.21839, corr:0.380631
+(0)	W50-40-M vs. sonde temp: bias: -0.632271, rmse: 1.22856, corr:0.980486
+(0)	W05-40-U vs. sonde wind speed: bias: -1.48563, rmse: 2.08122, corr:0.948545
+(0)	W05-40-U vs. sonde wind dir: bias: 0.663456, rmse: 6.37636, corr:0.28637
+(0)	W05-40-U vs. sonde temp: bias: -0.154169, rmse: 0.968499, corr:0.973998
+(0)	W05-60-U vs. sonde wind speed: bias: -3.38671, rmse: 4.29592, corr:0.7866
+(0)	W05-60-U vs. sonde wind dir: bias: -1.4559, rmse: 10.1191, corr:-0.159851
+(0)	W05-60-U vs. sonde temp: bias: 0.345176, rmse: 1.3194, corr:0.954994
+(0)	Plotting dropsonde data
+(0)	DS and WRF point plots complete- panneling
+(0)	converting to png
