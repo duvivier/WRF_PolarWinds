@@ -1,0 +1,25 @@
+Polar Winds Dropsonde Read Me File
+Processed with bad/missing data taken out (L2); Some initially reported variables such as internal temperature, battery voltage, RH_sensor, IR_Sensor, GPS_altitude, GPS_Lock_Age, etc.. not included but can be provided upon request.
+The most accurate height to use is the Hydrostatic_height (Q below)
+Line 1 – Date(YYYY/MM/DD), Start Time (Z), latitude (deg), Longitude (deg)
+Line 2 -9999999
+A -	Elapsed Time (seconds)
+B -	Pressure (mb)
+C -	Temperature (deg C) 
+D -	RH (%)
+E -	Fall Speed (m/s)
+F -	Surface Temperature (deg C)
+G -	Accel. Temperature (deg C)
+H -	Accel RH (%)
+I -	Dew Point Temperature (deg C)
+J -	Potential Temperature (deg K)
+K -	Equivalent Potential Temperature (deg K)
+L -	U Wind Component (m/s)
+M -	V Wind Component (m/s)
+N -	Wind Speed (m/s)
+O -	Wind Direction (deg.)
+P -	F_altitude (m above msl)
+Q -	Hydrostatic_height (m above msl)
+R -	Latitude (deg)
+S -	Longitude (deg)
+
